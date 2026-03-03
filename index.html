@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LDProject — Игровая студия</title>
-    <meta name="description" content="LDProject — игровая студия, создающая уникальные сборки с авторским сюжетом и атмосферой для Minecraft, The Witcher, Cyberpunk 2077.">
+    <meta name="description"
+        content="LDProject — игровая студия, создающая уникальные сборки с авторским сюжетом и атмосферой для Minecraft, The Witcher, Cyberpunk 2077.">
     <link rel="icon" type="image/png" href="assets/logo-circle.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
-        /* ===== RESET & BASE ===== */
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -46,22 +51,23 @@
             line-height: 1.7;
         }
 
-        /* ===== SCROLLBAR ===== */
         ::-webkit-scrollbar {
             width: 6px;
         }
+
         ::-webkit-scrollbar-track {
             background: var(--bg-primary);
         }
+
         ::-webkit-scrollbar-thumb {
             background: var(--red-deep);
             border-radius: 3px;
         }
+
         ::-webkit-scrollbar-thumb:hover {
             background: var(--red-neon);
         }
 
-        /* ===== PARTICLE CANVAS ===== */
         #particles-canvas {
             position: fixed;
             top: 0;
@@ -72,7 +78,7 @@
             pointer-events: none;
         }
 
-        /* ===== NAVBAR ===== */
+        /* NAVBAR */
         .navbar {
             position: fixed;
             top: 0;
@@ -121,6 +127,12 @@
             color: var(--red-neon);
             text-shadow: 0 0 20px rgba(255, 26, 26, 0.5);
             letter-spacing: 2px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
         .nav-links {
@@ -178,14 +190,107 @@
         .nav-burger.active span:nth-child(1) {
             transform: rotate(45deg) translate(5px, 5px);
         }
+
         .nav-burger.active span:nth-child(2) {
             opacity: 0;
         }
+
         .nav-burger.active span:nth-child(3) {
             transform: rotate(-45deg) translate(5px, -5px);
         }
 
-        /* ===== SECTIONS ===== */
+        /* LANG SWITCHER */
+        .lang-switcher {
+            position: relative;
+        }
+
+        .lang-current {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 14px;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .lang-current:hover {
+            border-color: var(--border-red);
+            color: var(--text-primary);
+            background: var(--red-dim);
+        }
+
+        .lang-current .lang-arrow {
+            font-size: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .lang-switcher.open .lang-arrow {
+            transform: rotate(180deg);
+        }
+
+        .lang-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            min-width: 160px;
+            max-height: 320px;
+            overflow-y: auto;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            padding: 6px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all 0.3s ease;
+            z-index: 1002;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .lang-switcher.open .lang-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .lang-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 14px;
+            border-radius: 7px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .lang-option:hover {
+            background: var(--red-dim);
+            color: var(--text-primary);
+        }
+
+        .lang-option.active {
+            color: var(--red-neon);
+            background: var(--red-dim);
+        }
+
+        .lang-flag {
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        /* SECTIONS */
         section {
             position: relative;
             z-index: 1;
@@ -210,14 +315,6 @@
             background-clip: text;
         }
 
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 16px;
-            max-width: 600px;
-            margin: 0 auto 60px;
-        }
-
         .section-divider {
             width: 80px;
             height: 3px;
@@ -226,7 +323,7 @@
             box-shadow: 0 0 20px rgba(255, 26, 26, 0.4);
         }
 
-        /* ===== HERO ===== */
+        /* HERO */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -252,8 +349,17 @@
         }
 
         @keyframes pulse-glow {
-            0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
-            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+
+            0%,
+            100% {
+                opacity: 0.5;
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
         }
 
         .hero-content {
@@ -270,8 +376,15 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
         }
 
         .hero h1 {
@@ -298,7 +411,7 @@
             font-weight: 300;
         }
 
-        /* ===== BUTTONS ===== */
+        /* BUTTONS */
         .btn-primary {
             display: inline-flex;
             align-items: center;
@@ -343,32 +456,7 @@
             transform: translateY(-1px);
         }
 
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 32px;
-            background: transparent;
-            color: var(--red-neon);
-            text-decoration: none;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            border-radius: 8px;
-            border: 1px solid var(--border-red);
-            transition: all 0.4s ease;
-            cursor: pointer;
-        }
-
-        .btn-secondary:hover {
-            background: var(--red-dim);
-            border-color: var(--red-neon);
-            box-shadow: 0 0 25px rgba(255, 0, 64, 0.2);
-            transform: translateY(-2px);
-        }
-
-        /* ===== ABOUT ===== */
+        /* ABOUT */
         .about {
             padding: 120px 0;
             position: relative;
@@ -454,7 +542,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* ===== PROJECTS ===== */
+        /* PROJECTS */
         .projects {
             padding: 120px 0;
             background: linear-gradient(180deg, transparent, rgba(255, 0, 64, 0.02), transparent);
@@ -474,7 +562,6 @@
             border: 1px solid var(--border-subtle);
             cursor: pointer;
             transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            group: true;
         }
 
         .project-card::before {
@@ -570,7 +657,7 @@
             transform: translateX(0);
         }
 
-        /* ===== DOWNLOAD ===== */
+        /* DOWNLOAD */
         .download {
             padding: 120px 0;
         }
@@ -669,7 +756,7 @@
             margin-right: 6px;
         }
 
-        /* ===== SOCIAL ===== */
+        /* SOCIAL */
         .social {
             padding: 100px 0;
             background: linear-gradient(180deg, transparent, rgba(255, 0, 64, 0.02), transparent);
@@ -722,7 +809,7 @@
             color: var(--red-neon);
         }
 
-        /* ===== FOOTER ===== */
+        /* FOOTER */
         .footer {
             padding: 40px 0;
             border-top: 1px solid var(--border-subtle);
@@ -739,8 +826,15 @@
         }
 
         @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
         }
 
         .footer-love {
@@ -759,7 +853,7 @@
             font-size: 13px;
         }
 
-        /* ===== ANIMATIONS ===== */
+        /* ANIMATIONS */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -771,12 +865,23 @@
             transform: translateY(0);
         }
 
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
-        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
 
-        /* ===== MOBILE ===== */
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        .reveal-delay-4 {
+            transition-delay: 0.4s;
+        }
+
+        /* MOBILE */
         @media (max-width: 968px) {
             .navbar {
                 padding: 14px 20px;
@@ -859,29 +964,21 @@
             }
         }
 
-        /* ===== SCANLINE EFFECT ===== */
+        /* SCANLINE */
         .scanline-overlay {
             position: fixed;
             inset: 0;
             z-index: 9999;
             pointer-events: none;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(0, 0, 0, 0.03) 2px,
-                rgba(0, 0, 0, 0.03) 4px
-            );
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.03) 2px, rgba(0, 0, 0, 0.03) 4px);
             opacity: 0.4;
         }
     </style>
 </head>
+
 <body>
 
-    <!-- Scanline overlay -->
     <div class="scanline-overlay"></div>
-
-    <!-- Particle canvas -->
     <canvas id="particles-canvas"></canvas>
 
     <!-- Navbar -->
@@ -891,33 +988,69 @@
             <span class="nav-logo-text">LDPROJECT</span>
         </a>
         <ul class="nav-links" id="navLinks">
-            <li><a href="#about" onclick="closeMenu()">О студии</a></li>
-            <li><a href="#projects" onclick="closeMenu()">Проекты</a></li>
-            <li><a href="#download" onclick="closeMenu()">Скачать</a></li>
-            <li><a href="#social" onclick="closeMenu()">Контакты</a></li>
+            <li><a href="#about" onclick="closeMenu()" data-i18n="nav_about">О студии</a></li>
+            <li><a href="#projects" onclick="closeMenu()" data-i18n="nav_projects">Проекты</a></li>
+            <li><a href="#download" onclick="closeMenu()" data-i18n="nav_download">Скачать</a></li>
+            <li><a href="#social" onclick="closeMenu()" data-i18n="nav_contacts">Контакты</a></li>
         </ul>
-        <div class="nav-burger" id="navBurger" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
+        <div class="nav-right">
+            <div class="lang-switcher" id="langSwitcher">
+                <div class="lang-current" onclick="toggleLang()">
+                    <span class="lang-flag" id="langFlag">🇷🇺</span>
+                    <span id="langLabel">RU</span>
+                    <span class="lang-arrow">▼</span>
+                </div>
+                <div class="lang-dropdown">
+                    <div class="lang-option active" data-lang="ru" onclick="setLanguage('ru')">
+                        <span class="lang-flag">🇷🇺</span> Русский
+                    </div>
+                    <div class="lang-option" data-lang="uk" onclick="setLanguage('uk')">
+                        <span class="lang-flag">🇺🇦</span> Українська
+                    </div>
+                    <div class="lang-option" data-lang="en" onclick="setLanguage('en')">
+                        <span class="lang-flag">🇬🇧</span> English
+                    </div>
+                    <div class="lang-option" data-lang="de" onclick="setLanguage('de')">
+                        <span class="lang-flag">🇩🇪</span> Deutsch
+                    </div>
+                    <div class="lang-option" data-lang="es" onclick="setLanguage('es')">
+                        <span class="lang-flag">🇪🇸</span> Español
+                    </div>
+                    <div class="lang-option" data-lang="fr" onclick="setLanguage('fr')">
+                        <span class="lang-flag">🇫🇷</span> Français
+                    </div>
+                    <div class="lang-option" data-lang="pt" onclick="setLanguage('pt')">
+                        <span class="lang-flag">🇧🇷</span> Português
+                    </div>
+                    <div class="lang-option" data-lang="zh" onclick="setLanguage('zh')">
+                        <span class="lang-flag">🇨🇳</span> 中文
+                    </div>
+                </div>
+            </div>
+            <div class="nav-burger" id="navBurger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero" id="hero">
         <div class="hero-content">
             <img src="assets/logo-square.jpg" alt="LDProject Logo" class="hero-logo reveal">
             <h1 class="reveal reveal-delay-1">LD<span>Project</span></h1>
-            <p class="hero-subtitle reveal reveal-delay-2">
+            <p class="hero-subtitle reveal reveal-delay-2" data-i18n="hero_subtitle">
                 Игровая студия, создающая уникальные сборки с&nbsp;авторским сюжетом и&nbsp;атмосферой.
             </p>
-            <a href="https://example.com/LDLauncher-setup.exe" class="btn-primary reveal reveal-delay-3">
+            <a href="https://github.com/LDProjectTeam" target="_blank" rel="noopener"
+                class="btn-primary reveal reveal-delay-3" data-i18n="hero_btn">
                 🔴 Скачать лаунчер
             </a>
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- About -->
     <section class="about" id="about">
         <div class="container">
             <div class="about-grid">
@@ -925,28 +1058,31 @@
                     <img src="assets/logo-wide.png" alt="LDProject">
                 </div>
                 <div class="about-text">
-                    <h2 class="reveal">О студии <span>LDProject</span></h2>
-                    <p class="reveal reveal-delay-1">
-                        <span class="highlight">LDProject</span> — это студия, занимающаяся созданием игровых сборок для разных игр: Minecraft, The Witcher, Cyberpunk 2077 и&nbsp;других проектов.
+                    <h2 class="reveal" data-i18n="about_title">О студии <span>LDProject</span></h2>
+                    <p class="reveal reveal-delay-1" data-i18n="about_p1">
+                        <span class="highlight">LDProject</span> — это студия, занимающаяся созданием игровых сборок для
+                        разных игр: Minecraft, The Witcher, Cyberpunk 2077 и&nbsp;других проектов.
                     </p>
-                    <p class="reveal reveal-delay-2">
-                        Сейчас студия сосредоточена на точечной разработке сборок для <span class="highlight">Minecraft</span>, где создаётся собственный сюжет, уникальная атмосфера и&nbsp;авторское видение игрового процесса.
+                    <p class="reveal reveal-delay-2" data-i18n="about_p2">
+                        Сейчас студия сосредоточена на точечной разработке сборок для <span
+                            class="highlight">Minecraft</span>, где создаётся собственный сюжет, уникальная атмосфера
+                        и&nbsp;авторское видение игрового процесса.
                     </p>
-                    <p class="reveal reveal-delay-3">
+                    <p class="reveal reveal-delay-3" data-i18n="about_p3">
                         Каждая сборка — это не просто модпак, а <span class="highlight">полноценная история</span>.
                     </p>
                     <div class="about-stats reveal reveal-delay-4">
                         <div class="stat-item">
                             <div class="stat-value">3+</div>
-                            <div class="stat-label">Проекта</div>
+                            <div class="stat-label" data-i18n="stat_projects">Проекта</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-value">100+</div>
-                            <div class="stat-label">Модов</div>
+                            <div class="stat-label" data-i18n="stat_mods">Модов</div>
                         </div>
                         <div class="stat-item">
                             <div class="stat-value">∞</div>
-                            <div class="stat-label">Атмосферы</div>
+                            <div class="stat-label" data-i18n="stat_atmosphere">Атмосферы</div>
                         </div>
                     </div>
                 </div>
@@ -954,39 +1090,39 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- Projects -->
     <section class="projects" id="projects">
         <div class="container">
-            <h2 class="section-title reveal">Наши проекты</h2>
+            <h2 class="section-title reveal" data-i18n="projects_title">Наши проекты</h2>
             <div class="section-divider reveal"></div>
             <div class="projects-grid">
-                <!-- Minecraft -->
                 <div class="project-card reveal reveal-delay-1">
                     <img src="assets/minecraft.png" alt="Minecraft" class="project-image">
                     <div class="project-info">
-                        <span class="project-badge">⭐ Приоритетное</span>
+                        <span class="project-badge" data-i18n="badge_priority">⭐ Приоритетное</span>
                         <h3 class="project-title">Minecraft</h3>
-                        <p class="project-desc">Авторские сборки с уникальным сюжетом, кастомной атмосферой и полным погружением в мир приключений.</p>
+                        <p class="project-desc" data-i18n="project_mc_desc">Авторские сборки с уникальным сюжетом,
+                            кастомной атмосферой и полным погружением в мир приключений.</p>
                     </div>
                     <div class="project-arrow">→</div>
                 </div>
-                <!-- Witcher -->
                 <div class="project-card reveal reveal-delay-2">
                     <img src="assets/witcher.png" alt="The Witcher" class="project-image">
                     <div class="project-info">
-                        <span class="project-badge">В разработке</span>
-                        <h3 class="project-title">Ведьмак</h3>
-                        <p class="project-desc">Модификации и сборки для мира The Witcher — тёмное фэнтези с атмосферой Континента.</p>
+                        <span class="project-badge" data-i18n="badge_dev">В разработке</span>
+                        <h3 class="project-title" data-i18n="project_witcher">Ведьмак</h3>
+                        <p class="project-desc" data-i18n="project_witcher_desc">Модификации и сборки для мира The
+                            Witcher — тёмное фэнтези с атмосферой Континента.</p>
                     </div>
                     <div class="project-arrow">→</div>
                 </div>
-                <!-- Cyberpunk -->
                 <div class="project-card reveal reveal-delay-3">
                     <img src="assets/cyberpunk.png" alt="Cyberpunk 2077" class="project-image">
                     <div class="project-info">
-                        <span class="project-badge">В разработке</span>
+                        <span class="project-badge" data-i18n="badge_dev">В разработке</span>
                         <h3 class="project-title">Cyberpunk 2077</h3>
-                        <p class="project-desc">Неоновый мир будущего — кастомные моды и улучшения для погружения в Night City.</p>
+                        <p class="project-desc" data-i18n="project_cp_desc">Неоновый мир будущего — кастомные моды и
+                            улучшения для погружения в Night City.</p>
                     </div>
                     <div class="project-arrow">→</div>
                 </div>
@@ -994,48 +1130,73 @@
         </div>
     </section>
 
-    <!-- Download Section -->
+    <!-- Download -->
     <section class="download" id="download">
         <div class="container">
             <div class="download-box reveal">
                 <span class="download-icon">🚀</span>
-                <h2>Скачать <span>LDLauncher</span></h2>
-                <p class="download-version">Последняя версия: <strong>v1.0</strong></p>
+                <h2 data-i18n="download_title">Скачать <span>LDLauncher</span></h2>
+                <p class="download-version" data-i18n="download_version">Последняя версия: <strong>v1.0</strong></p>
                 <div class="download-btn-wrap">
-                    <a href="https://example.com/LDLauncher-setup.exe" class="btn-primary">
+                    <a href="https://github.com/LDProjectTeam" target="_blank" rel="noopener" class="btn-primary"
+                        data-i18n="download_btn">
                         ⬇️ Скачать LDLauncher
                     </a>
                 </div>
                 <div class="download-note">
-                    <p><span class="note-icon">ℹ️</span> Все новости, обновления и&nbsp;информация публикуются прямо в&nbsp;лаунчере. Установите его, чтобы быть в&nbsp;курсе всех событий.</p>
+                    <p data-i18n="download_note"><span class="note-icon">ℹ️</span> Все новости, обновления
+                        и&nbsp;информация публикуются прямо в&nbsp;лаунчере. Установите его, чтобы быть в&nbsp;курсе
+                        всех событий.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Social Section -->
+    <!-- Social -->
     <section class="social" id="social">
         <div class="container">
-            <h2 class="section-title reveal">Мы в сети</h2>
+            <h2 class="section-title reveal" data-i18n="social_title">Мы в сети</h2>
             <div class="section-divider reveal"></div>
             <div class="social-grid">
-                <a href="https://github.com" target="_blank" rel="noopener" class="social-link reveal reveal-delay-1">
+                <a href="https://github.com/LDProjectTeam" target="_blank" rel="noopener"
+                    class="social-link reveal reveal-delay-1">
                     <span class="social-icon">
-                        <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
                     </span>
                     GitHub
                 </a>
-                <a href="https://t.me" target="_blank" rel="noopener" class="social-link reveal reveal-delay-2">
+                <a href="https://t.me/LD_PROJECT_TEAM" target="_blank" rel="noopener"
+                    class="social-link reveal reveal-delay-2">
                     <span class="social-icon">
-                        <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+                        </svg>
                     </span>
                     Telegram
                 </a>
-                <a href="https://discord.gg" target="_blank" rel="noopener" class="social-link reveal reveal-delay-3">
+                <a href="https://discord.com/channels/1363850845329952998/1377591133571649610" target="_blank"
+                    rel="noopener" class="social-link reveal reveal-delay-3">
                     <span class="social-icon">
-                        <svg viewBox="0 0 24 24"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z" />
+                        </svg>
                     </span>
                     Discord
+                </a>
+                <a href="https://x.com/LSupport37564" target="_blank" rel="noopener"
+                    class="social-link reveal reveal-delay-4">
+                    <span class="social-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg>
+                    </span>
+                    X
                 </a>
             </div>
         </div>
@@ -1044,11 +1205,224 @@
     <!-- Footer -->
     <footer class="footer">
         <span class="footer-heart">❤️</span>
-        <p class="footer-love">С любовью, <span>LDProject</span></p>
+        <p class="footer-love" data-i18n="footer_love">С любовью, <span>LDProject</span></p>
         <p class="footer-copy">© 2026 LDProject</p>
     </footer>
 
     <script>
+        // ===== I18N TRANSLATIONS =====
+        const translations = {
+            ru: {
+                nav_about: 'О студии', nav_projects: 'Проекты', nav_download: 'Скачать', nav_contacts: 'Контакты',
+                hero_subtitle: 'Игровая студия, создающая уникальные сборки с\u00A0авторским сюжетом и\u00A0атмосферой.',
+                hero_btn: '🔴 Скачать лаунчер',
+                about_title: 'О студии <span>LDProject</span>',
+                about_p1: '<span class="highlight">LDProject</span> — это студия, занимающаяся созданием игровых сборок для разных игр: Minecraft, The Witcher, Cyberpunk 2077 и\u00A0других проектов.',
+                about_p2: 'Сейчас студия сосредоточена на точечной разработке сборок для <span class="highlight">Minecraft</span>, где создаётся собственный сюжет, уникальная атмосфера и\u00A0авторское видение игрового процесса.',
+                about_p3: 'Каждая сборка — это не просто модпак, а <span class="highlight">полноценная история</span>.',
+                stat_projects: 'Проекта', stat_mods: 'Модов', stat_atmosphere: 'Атмосферы',
+                projects_title: 'Наши проекты', badge_priority: '⭐ Приоритетное', badge_dev: 'В разработке',
+                project_mc_desc: 'Авторские сборки с уникальным сюжетом, кастомной атмосферой и полным погружением в мир приключений.',
+                project_witcher: 'Ведьмак',
+                project_witcher_desc: 'Модификации и сборки для мира The Witcher — тёмное фэнтези с атмосферой Континента.',
+                project_cp_desc: 'Неоновый мир будущего — кастомные моды и улучшения для погружения в Night City.',
+                download_title: 'Скачать <span>LDLauncher</span>', download_version: 'Последняя версия: <strong>v1.0</strong>',
+                download_btn: '⬇️ Скачать LDLauncher',
+                download_note: '<span class="note-icon">ℹ️</span> Все новости, обновления и\u00A0информация публикуются прямо в\u00A0лаунчере. Установите его, чтобы быть в\u00A0курсе всех событий.',
+                social_title: 'Мы в сети', footer_love: 'С любовью, <span>LDProject</span>'
+            },
+            uk: {
+                nav_about: 'Про студію', nav_projects: 'Проєкти', nav_download: 'Завантажити', nav_contacts: 'Контакти',
+                hero_subtitle: 'Ігрова студія, що створює унікальні збірки з\u00A0авторським сюжетом та\u00A0атмосферою.',
+                hero_btn: '🔴 Завантажити лаунчер',
+                about_title: 'Про студію <span>LDProject</span>',
+                about_p1: '<span class="highlight">LDProject</span> — це студія, що займається створенням ігрових збірок для різних ігор: Minecraft, The Witcher, Cyberpunk 2077 та\u00A0інших проєктів.',
+                about_p2: 'Зараз студія зосереджена на точковій розробці збірок для <span class="highlight">Minecraft</span>, де створюється власний сюжет, унікальна атмосфера та\u00A0авторське бачення ігрового процесу.',
+                about_p3: 'Кожна збірка — це не просто модпак, а <span class="highlight">повноцінна історія</span>.',
+                stat_projects: 'Проєкти', stat_mods: 'Модів', stat_atmosphere: 'Атмосфери',
+                projects_title: 'Наші проєкти', badge_priority: '⭐ Пріоритетне', badge_dev: 'В розробці',
+                project_mc_desc: 'Авторські збірки з унікальним сюжетом, кастомною атмосферою та повним зануренням у світ пригод.',
+                project_witcher: 'Відьмак',
+                project_witcher_desc: 'Модифікації та збірки для світу The Witcher — темне фентезі з атмосферою Континенту.',
+                project_cp_desc: 'Неоновий світ майбутнього — кастомні моди та покращення для занурення в Night City.',
+                download_title: 'Завантажити <span>LDLauncher</span>', download_version: 'Остання версія: <strong>v1.0</strong>',
+                download_btn: '⬇️ Завантажити LDLauncher',
+                download_note: '<span class="note-icon">ℹ️</span> Усі новини, оновлення та\u00A0інформація публікуються прямо в\u00A0лаунчері. Встановіть його, щоб бути в\u00A0курсі всіх подій.',
+                social_title: 'Ми в мережі', footer_love: 'З любов\'ю, <span>LDProject</span>'
+            },
+            en: {
+                nav_about: 'About', nav_projects: 'Projects', nav_download: 'Download', nav_contacts: 'Contacts',
+                hero_subtitle: 'A game studio crafting unique modpacks with original storylines and immersive atmosphere.',
+                hero_btn: '🔴 Download Launcher',
+                about_title: 'About <span>LDProject</span>',
+                about_p1: '<span class="highlight">LDProject</span> is a studio creating game modpacks for various games: Minecraft, The Witcher, Cyberpunk 2077 and other projects.',
+                about_p2: 'Currently, the studio is focused on targeted development of modpacks for <span class="highlight">Minecraft</span>, crafting original storylines, unique atmosphere and an authorial vision of gameplay.',
+                about_p3: 'Every modpack is not just a collection of mods — it\'s a <span class="highlight">complete story</span>.',
+                stat_projects: 'Projects', stat_mods: 'Mods', stat_atmosphere: 'Atmosphere',
+                projects_title: 'Our Projects', badge_priority: '⭐ Priority', badge_dev: 'In Development',
+                project_mc_desc: 'Original modpacks with unique storylines, custom atmosphere and full immersion into a world of adventure.',
+                project_witcher: 'The Witcher',
+                project_witcher_desc: 'Modifications and modpacks for The Witcher universe — dark fantasy with the atmosphere of the Continent.',
+                project_cp_desc: 'A neon world of the future — custom mods and enhancements for immersion into Night City.',
+                download_title: 'Download <span>LDLauncher</span>', download_version: 'Latest version: <strong>v1.0</strong>',
+                download_btn: '⬇️ Download LDLauncher',
+                download_note: '<span class="note-icon">ℹ️</span> All news, updates and information are published directly in the launcher. Install it to stay up to date with all events.',
+                social_title: 'Follow Us', footer_love: 'With love, <span>LDProject</span>'
+            },
+            de: {
+                nav_about: 'Über uns', nav_projects: 'Projekte', nav_download: 'Herunterladen', nav_contacts: 'Kontakte',
+                hero_subtitle: 'Ein Spielestudio, das einzigartige Modpacks mit originellen Geschichten und immersiver Atmosphäre erschafft.',
+                hero_btn: '🔴 Launcher herunterladen',
+                about_title: 'Über <span>LDProject</span>',
+                about_p1: '<span class="highlight">LDProject</span> ist ein Studio, das Spiel-Modpacks für verschiedene Spiele erstellt: Minecraft, The Witcher, Cyberpunk 2077 und andere Projekte.',
+                about_p2: 'Derzeit konzentriert sich das Studio auf die gezielte Entwicklung von Modpacks für <span class="highlight">Minecraft</span>, mit eigener Handlung, einzigartiger Atmosphäre und einer autorenhaften Vision des Gameplays.',
+                about_p3: 'Jedes Modpack ist nicht nur eine Sammlung von Mods — es ist eine <span class="highlight">vollständige Geschichte</span>.',
+                stat_projects: 'Projekte', stat_mods: 'Mods', stat_atmosphere: 'Atmosphäre',
+                projects_title: 'Unsere Projekte', badge_priority: '⭐ Priorität', badge_dev: 'In Entwicklung',
+                project_mc_desc: 'Originelle Modpacks mit einzigartigen Geschichten, individueller Atmosphäre und vollem Eintauchen in eine Abenteuerwelt.',
+                project_witcher: 'The Witcher',
+                project_witcher_desc: 'Modifikationen und Modpacks für das Witcher-Universum — Dark Fantasy mit der Atmosphäre des Kontinents.',
+                project_cp_desc: 'Eine Neonwelt der Zukunft — individuelle Mods und Verbesserungen zum Eintauchen in Night City.',
+                download_title: 'Herunterladen <span>LDLauncher</span>', download_version: 'Neueste Version: <strong>v1.0</strong>',
+                download_btn: '⬇️ LDLauncher herunterladen',
+                download_note: '<span class="note-icon">ℹ️</span> Alle Neuigkeiten, Updates und Informationen werden direkt im Launcher veröffentlicht. Installieren Sie ihn, um auf dem Laufenden zu bleiben.',
+                social_title: 'Folge uns', footer_love: 'Mit Liebe, <span>LDProject</span>'
+            },
+            es: {
+                nav_about: 'Sobre nosotros', nav_projects: 'Proyectos', nav_download: 'Descargar', nav_contacts: 'Contactos',
+                hero_subtitle: 'Un estudio de juegos que crea modpacks únicos con historias originales y una atmósfera inmersiva.',
+                hero_btn: '🔴 Descargar launcher',
+                about_title: 'Sobre <span>LDProject</span>',
+                about_p1: '<span class="highlight">LDProject</span> es un estudio dedicado a la creación de modpacks para diversos juegos: Minecraft, The Witcher, Cyberpunk 2077 y otros proyectos.',
+                about_p2: 'Actualmente, el estudio se centra en el desarrollo de modpacks para <span class="highlight">Minecraft</span>, creando historias propias, atmósferas únicas y una visión autoral del gameplay.',
+                about_p3: 'Cada modpack no es solo una colección de mods, sino una <span class="highlight">historia completa</span>.',
+                stat_projects: 'Proyectos', stat_mods: 'Mods', stat_atmosphere: 'Atmósfera',
+                projects_title: 'Nuestros proyectos', badge_priority: '⭐ Prioritario', badge_dev: 'En desarrollo',
+                project_mc_desc: 'Modpacks originales con historias únicas, atmósfera personalizada e inmersión total en un mundo de aventuras.',
+                project_witcher: 'The Witcher',
+                project_witcher_desc: 'Modificaciones y modpacks para el universo de The Witcher — fantasía oscura con la atmósfera del Continente.',
+                project_cp_desc: 'Un mundo de neón del futuro — mods personalizados y mejoras para sumergirse en Night City.',
+                download_title: 'Descargar <span>LDLauncher</span>', download_version: 'Última versión: <strong>v1.0</strong>',
+                download_btn: '⬇️ Descargar LDLauncher',
+                download_note: '<span class="note-icon">ℹ️</span> Todas las noticias, actualizaciones e información se publican directamente en el launcher. Instálalo para estar al día de todos los eventos.',
+                social_title: 'Síguenos', footer_love: 'Con amor, <span>LDProject</span>'
+            },
+            fr: {
+                nav_about: 'À propos', nav_projects: 'Projets', nav_download: 'Télécharger', nav_contacts: 'Contacts',
+                hero_subtitle: 'Un studio de jeux créant des modpacks uniques avec des scénarios originaux et une atmosphère immersive.',
+                hero_btn: '🔴 Télécharger le launcher',
+                about_title: 'À propos de <span>LDProject</span>',
+                about_p1: '<span class="highlight">LDProject</span> est un studio dédié à la création de modpacks pour divers jeux : Minecraft, The Witcher, Cyberpunk 2077 et d\'autres projets.',
+                about_p2: 'Actuellement, le studio se concentre sur le développement de modpacks pour <span class="highlight">Minecraft</span>, avec un scénario original, une atmosphère unique et une vision d\'auteur du gameplay.',
+                about_p3: 'Chaque modpack n\'est pas simplement une collection de mods — c\'est une <span class="highlight">histoire complète</span>.',
+                stat_projects: 'Projets', stat_mods: 'Mods', stat_atmosphere: 'Atmosphère',
+                projects_title: 'Nos projets', badge_priority: '⭐ Prioritaire', badge_dev: 'En développement',
+                project_mc_desc: 'Des modpacks originaux avec des scénarios uniques, une atmosphère sur mesure et une immersion totale dans un monde d\'aventures.',
+                project_witcher: 'The Witcher',
+                project_witcher_desc: 'Modifications et modpacks pour l\'univers de The Witcher — dark fantasy avec l\'atmosphère du Continent.',
+                project_cp_desc: 'Un monde néon du futur — des mods personnalisés et des améliorations pour s\'immerger dans Night City.',
+                download_title: 'Télécharger <span>LDLauncher</span>', download_version: 'Dernière version : <strong>v1.0</strong>',
+                download_btn: '⬇️ Télécharger LDLauncher',
+                download_note: '<span class="note-icon">ℹ️</span> Toutes les actualités, mises à jour et informations sont publiées directement dans le launcher. Installez-le pour rester informé.',
+                social_title: 'Suivez-nous', footer_love: 'Avec amour, <span>LDProject</span>'
+            },
+            pt: {
+                nav_about: 'Sobre nós', nav_projects: 'Projetos', nav_download: 'Baixar', nav_contacts: 'Contatos',
+                hero_subtitle: 'Um estúdio de jogos que cria modpacks únicos com histórias originais e atmosfera imersiva.',
+                hero_btn: '🔴 Baixar launcher',
+                about_title: 'Sobre <span>LDProject</span>',
+                about_p1: '<span class="highlight">LDProject</span> é um estúdio dedicado à criação de modpacks para diversos jogos: Minecraft, The Witcher, Cyberpunk 2077 e outros projetos.',
+                about_p2: 'Atualmente, o estúdio está focado no desenvolvimento de modpacks para <span class="highlight">Minecraft</span>, criando enredos próprios, atmosfera única e uma visão autoral da jogabilidade.',
+                about_p3: 'Cada modpack não é apenas uma coleção de mods — é uma <span class="highlight">história completa</span>.',
+                stat_projects: 'Projetos', stat_mods: 'Mods', stat_atmosphere: 'Atmosfera',
+                projects_title: 'Nossos projetos', badge_priority: '⭐ Prioridade', badge_dev: 'Em desenvolvimento',
+                project_mc_desc: 'Modpacks originais com histórias únicas, atmosfera personalizada e imersão total em um mundo de aventuras.',
+                project_witcher: 'The Witcher',
+                project_witcher_desc: 'Modificações e modpacks para o universo de The Witcher — fantasia sombria com a atmosfera do Continente.',
+                project_cp_desc: 'Um mundo neon do futuro — mods personalizados e melhorias para imersão em Night City.',
+                download_title: 'Baixar <span>LDLauncher</span>', download_version: 'Última versão: <strong>v1.0</strong>',
+                download_btn: '⬇️ Baixar LDLauncher',
+                download_note: '<span class="note-icon">ℹ️</span> Todas as notícias, atualizações e informações são publicadas diretamente no launcher. Instale para ficar por dentro de todos os eventos.',
+                social_title: 'Siga-nos', footer_love: 'Com amor, <span>LDProject</span>'
+            },
+            zh: {
+                nav_about: '关于我们', nav_projects: '项目', nav_download: '下载', nav_contacts: '联系方式',
+                hero_subtitle: '一家打造独特模组包的游戏工作室，拥有原创剧情和沉浸式氛围。',
+                hero_btn: '🔴 下载启动器',
+                about_title: '关于 <span>LDProject</span>',
+                about_p1: '<span class="highlight">LDProject</span> 是一家专注于为各种游戏制作模组包的工作室：Minecraft、巫师、赛博朋克2077 以及其他项目。',
+                about_p2: '目前，工作室专注于 <span class="highlight">Minecraft</span> 模组包的开发，创造独特的剧情、独特的氛围和独到的游戏体验视角。',
+                about_p3: '每个模组包不仅仅是模组的集合——它是一个 <span class="highlight">完整的故事</span>。',
+                stat_projects: '项目', stat_mods: '模组', stat_atmosphere: '氛围',
+                projects_title: '我们的项目', badge_priority: '⭐ 优先', badge_dev: '开发中',
+                project_mc_desc: '拥有独特剧情、定制氛围和完全沉浸式冒险世界的原创模组包。',
+                project_witcher: '巫师',
+                project_witcher_desc: '巫师世界的修改和模组包——充满大陆氛围的黑暗奇幻。',
+                project_cp_desc: '未来的霓虹世界——沉浸在夜之城的定制模组和增强功能。',
+                download_title: '下载 <span>LDLauncher</span>', download_version: '最新版本：<strong>v1.0</strong>',
+                download_btn: '⬇️ 下载 LDLauncher',
+                download_note: '<span class="note-icon">ℹ️</span> 所有新闻、更新和信息都直接在启动器中发布。安装它以了解所有最新动态。',
+                social_title: '关注我们', footer_love: '用爱制作，<span>LDProject</span>'
+            }
+        };
+
+        const langMeta = {
+            ru: { flag: '🇷🇺', title: 'LDProject — Игровая студия' },
+            uk: { flag: '🇺🇦', title: 'LDProject — Ігрова студія' },
+            en: { flag: '🇬🇧', title: 'LDProject — Game Studio' },
+            de: { flag: '🇩🇪', title: 'LDProject — Spielestudio' },
+            es: { flag: '🇪🇸', title: 'LDProject — Estudio de juegos' },
+            fr: { flag: '🇫🇷', title: 'LDProject — Studio de jeux' },
+            pt: { flag: '🇧🇷', title: 'LDProject — Estúdio de jogos' },
+            zh: { flag: '🇨🇳', title: 'LDProject — 游戏工作室' }
+        };
+
+        let currentLang = localStorage.getItem('ldp-lang') || 'ru';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('ldp-lang', lang);
+            document.documentElement.setAttribute('lang', lang);
+
+            // Update flag & label
+            document.getElementById('langFlag').textContent = langMeta[lang].flag;
+            document.getElementById('langLabel').textContent = lang.toUpperCase();
+
+            // Update active option
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                opt.classList.toggle('active', opt.dataset.lang === lang);
+            });
+
+            // Apply translations
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            // Update title
+            document.title = langMeta[lang].title;
+
+            closeLang();
+        }
+
+        function toggleLang() {
+            document.getElementById('langSwitcher').classList.toggle('open');
+        }
+
+        function closeLang() {
+            document.getElementById('langSwitcher').classList.remove('open');
+        }
+
+        // Close lang dropdown on outside click
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.lang-switcher')) closeLang();
+        });
+
+        // Apply saved language on load
+        if (currentLang !== 'ru') setLanguage(currentLang);
+
         // ===== PARTICLES SYSTEM =====
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
@@ -1061,16 +1435,10 @@
         }
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
-
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-        });
+        window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
 
         class Particle {
-            constructor() {
-                this.reset();
-            }
+            constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
@@ -1085,17 +1453,11 @@
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-
                 if (mouse.x !== null) {
-                    const dx = mouse.x - this.x;
-                    const dy = mouse.y - this.y;
+                    const dx = mouse.x - this.x, dy = mouse.y - this.y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 120) {
-                        this.x -= dx * 0.01;
-                        this.y -= dy * 0.01;
-                    }
+                    if (dist < 120) { this.x -= dx * 0.01; this.y -= dy * 0.01; }
                 }
-
                 if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
             }
@@ -1110,9 +1472,7 @@
         function initParticles() {
             const count = Math.min(Math.floor((canvas.width * canvas.height) / 12000), 120);
             particles = [];
-            for (let i = 0; i < count; i++) {
-                particles.push(new Particle());
-            }
+            for (let i = 0; i < count; i++) particles.push(new Particle());
         }
         initParticles();
 
@@ -1123,8 +1483,7 @@
                     const dy = particles[i].y - particles[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist < 130) {
-                        const opacity = (1 - dist / 130) * 0.15;
-                        ctx.strokeStyle = `rgba(255, 26, 26, ${opacity})`;
+                        ctx.strokeStyle = `rgba(255, 26, 26, ${(1 - dist / 130) * 0.15})`;
                         ctx.lineWidth = 0.5;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
@@ -1137,10 +1496,7 @@
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
+            particles.forEach(p => { p.update(); p.draw(); });
             connectParticles();
             requestAnimationFrame(animateParticles);
         }
@@ -1149,11 +1505,7 @@
         // ===== NAVBAR SCROLL =====
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
-            if (window.scrollY > 60) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+            navbar.classList.toggle('scrolled', window.scrollY > 60);
         });
 
         // ===== MOBILE MENU =====
@@ -1161,7 +1513,6 @@
             document.getElementById('navLinks').classList.toggle('open');
             document.getElementById('navBurger').classList.toggle('active');
         }
-
         function closeMenu() {
             document.getElementById('navLinks').classList.remove('open');
             document.getElementById('navBurger').classList.remove('active');
@@ -1169,30 +1520,24 @@
 
         // ===== SCROLL REVEAL =====
         const revealElements = document.querySelectorAll('.reveal');
-
         function checkReveal() {
-            const windowHeight = window.innerHeight;
+            const wh = window.innerHeight;
             revealElements.forEach(el => {
-                const elementTop = el.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 80) {
-                    el.classList.add('active');
-                }
+                if (el.getBoundingClientRect().top < wh - 80) el.classList.add('active');
             });
         }
-
         window.addEventListener('scroll', checkReveal);
         window.addEventListener('load', checkReveal);
 
-        // ===== SMOOTH ANCHOR SCROLL =====
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
+                const t = document.querySelector(this.getAttribute('href'));
+                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
     </script>
 </body>
+
 </html>
