@@ -471,21 +471,27 @@
 
         .about-image {
             position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .about-image img {
             width: 100%;
             max-width: 380px;
-            margin: 0 auto;
             display: block;
             border-radius: 20px;
             filter: drop-shadow(0 0 40px rgba(255, 26, 26, 0.3));
+            position: relative;
+            z-index: 1;
         }
 
         .about-image::after {
             content: '';
             position: absolute;
-            inset: -20px;
+            width: calc(100% + 16px);
+            max-width: 412px;
+            height: calc(100% + 16px);
             border: 1px solid var(--border-red);
             border-radius: 26px;
             opacity: 0.3;
@@ -1138,8 +1144,8 @@
                 <h2 data-i18n="download_title">Скачать <span>LDLauncher</span></h2>
                 <p class="download-version" data-i18n="download_version">Последняя версия: <strong>v1.0</strong></p>
                 <div class="download-btn-wrap">
-                    <a href="https://github.com/LDProjectTeam" target="_blank" rel="noopener" class="btn-primary"
-                        data-i18n="download_btn">
+                    <a href="https://github.com/LDProjectTeam/LDL/releases/download/2.0.0/LDLauncher_Setup.exe"
+                        target="_blank" rel="noopener" class="btn-primary" data-i18n="download_btn">
                         ⬇️ Скачать LDLauncher
                     </a>
                 </div>
